@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "$1" > /tmp/test.txt
+cp -R ./Assets/Plugins/iOS/Domob $1
+./Assets/Editor/DomobXCodeProjPatch $1 > /tmp/DomobXCodeProjPatch.log

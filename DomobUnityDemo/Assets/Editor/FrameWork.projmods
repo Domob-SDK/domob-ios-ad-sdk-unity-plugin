@@ -1,0 +1,9 @@
+{
+    "group": "",
+    "libs": [],
+    "frameworks":["AdSupport.framework","Social.framework","storeKit.framework","PassKit.framework","EventKit.framework","libz.dylib","libsqlite3.dylib","MobileCoreServices.framework","CoreText.framework","MessageUI.framework","CoreTelephony.framework"],
+    "headerpaths": [],
+    "files":   [],
+    "folders": ["iOS/KKKeychain/"],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"]
+}
