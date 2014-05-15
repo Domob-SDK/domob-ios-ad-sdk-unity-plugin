@@ -22,7 +22,7 @@ DMSDKCallBackProxy* GetSDKCallBackProxyByUnityObjectName(NSString* unityObjectNa
 
 extern "C"
 {
-    void DomobAddBannerADViewWithAutoRefresh(float x,float y,float w,float h,const char* publisherid, const char* placementID,const char* delegateObject, const char* key,BOOL autoRefresh) {
+    void DomobAddBannerADViewWithAutoRefresh(float x,float y,int w,int h,const char* publisherid, const char* placementID,const char* delegateObject, const char* key,BOOL autoRefresh) {
         @autoreleasepool {
             if ([domobViewDic objectForKey:[NSString stringWithUTF8String:key]]) {
                 NSLog(@"has an banner");
@@ -34,16 +34,20 @@ extern "C"
                 if (NULL != placementID) {
                     placeID = [NSString stringWithUTF8String:placementID];
                 }
-                if ((w!= 320 && h != 50)&&(h != 80 && w != 488) &&(h != 90 && w != 728)) {
+                if (((w != 320 || w != 0 ) && h != 50)&&(h != 80 && w != 488) &&(h != 90 && (w != 728 || w != 0))) {
                     NSLog(@"not support for your size please check it %f   %f",w,h);
                 }else{
                     DMAdView *dmAdView = [[DMAdView alloc] initWithPublisherId:pubID
                                                                    placementId:placeID
-                                                                          size:CGSizeMake(w,h)
                                                                    autorefresh:autoRefresh];
                     
-                    
-                    dmAdView.frame = CGRectMake(x, y,w,h);
+                    if (w == 0) {
+                         dmAdView.frame = CGRectMake(x, y,0,h);
+                    }else{
+                        [dmAdView setAdSize:CGSizeMake(w,h)];
+                        dmAdView.frame = CGRectMake(x,y,w,h);
+                    }
+                   
                     
                     UIView *parentView = UnityGetGLView();
                     
