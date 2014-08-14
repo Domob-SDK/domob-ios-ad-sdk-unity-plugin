@@ -77,45 +77,33 @@ extern "C"
     }
     
     
-    void DomobInterstitialsAdInitializeWithSize (const char* publishID,const char* placementID,const char* delegateObject, const char* key ,float w,float h)
-    {
-        if ([domobViewDic objectForKey:[NSString stringWithUTF8String:key]]) {
-            NSLog(@"has an Interstitial");
-        }else{
-            NSString* pubID = [NSString stringWithUTF8String:publishID];
-            NSString *placeID = nil;
-            
-            if (NULL != placementID) {
-                placeID = [NSString stringWithUTF8String:placementID];
-            }
-            CGSize adSize;
-            if (w ==600 && h ==500) {
-                adSize = CGSizeMake(600,500);
-            }else{
-                adSize =CGSizeMake(300,250);
-            }
-            
-            NSString* unityObjectName = nil;
-            if (delegateObject != NULL && strlen(delegateObject) > 0) {
-                unityObjectName = [NSString stringWithUTF8String:delegateObject];
-            }
-            
-            DMInterstitialAdController *dmInterstitial = [[DMInterstitialAdController alloc] initWithPublisherId:pubID
-                                                                                                     placementId:placeID
-                                                                                              rootViewController:(UIViewController*)UnityGetGLViewController()
-                                                                                                            size:adSize];
-            
-            dmInterstitial.delegate = GetSDKCallBackProxyByUnityObjectName(unityObjectName);
-            [dmInterstitial loadAd];
-            [domobViewDic setObject:[dmInterstitial retain] forKey:[NSString stringWithUTF8String:key]];
-            [dmInterstitial release];
-        }
-        
-    }
-    
     void DomobInterstitialsAdInitialize (const char* publishID,const char* placementID,const char* delegateObject, const char* key) {
         @autoreleasepool {
-            DomobInterstitialsAdInitializeWithSize(publishID,placementID,delegateObject,key,0,0);
+            if ([domobViewDic objectForKey:[NSString stringWithUTF8String:key]]) {
+                NSLog(@"has an Interstitial");
+            }else{
+                NSString* pubID = [NSString stringWithUTF8String:publishID];
+                NSString *placeID = nil;
+                
+                if (NULL != placementID) {
+                    placeID = [NSString stringWithUTF8String:placementID];
+                }
+                             
+                NSString* unityObjectName = nil;
+                if (delegateObject != NULL && strlen(delegateObject) > 0) {
+                    unityObjectName = [NSString stringWithUTF8String:delegateObject];
+                }
+                
+                DMInterstitialAdController *dmInterstitial = [[DMInterstitialAdController alloc] initWithPublisherId:pubID
+                                                                                                         placementId:placeID
+                                                                                                  rootViewController:(UIViewController*)UnityGetGLViewController()];
+                
+                dmInterstitial.delegate = GetSDKCallBackProxyByUnityObjectName(unityObjectName);
+                [dmInterstitial loadAd];
+                [domobViewDic setObject:[dmInterstitial retain] forKey:[NSString stringWithUTF8String:key]];
+                [dmInterstitial release];
+            }
+
         }
     }
     

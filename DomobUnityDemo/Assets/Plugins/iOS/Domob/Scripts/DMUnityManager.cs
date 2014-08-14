@@ -14,17 +14,10 @@ public class DMUnityManager
 	[DllImport ("__Internal")]
 	//remove banner view from parentView 
 	public static extern void DomobRemoveBannerADView (string key);
-
 	
 	[DllImport ("__Internal")]
 	//init interstitial view with publisherid,placementid,delegateObject,key string(desided by yourself for recognize the interstitial view)
 	public static extern void DomobInterstitialsAdInitialize (string publisherid,string placementid,string delegateObject, string key);
-	
-	
-	[DllImport ("__Internal")]
-	//init interstitial view with publisherid,placementid,delegateObject,key string(desided by yourself for recognize the interstitial view),size.width,size.height
-	public static extern void DomobInterstitialsAdInitializeWithSize (string publisherid,string placementid,string delegateObject, string key ,float w,float h);
-	
 	
 	[DllImport ("__Internal")]
 	//present the interstitial view 
